@@ -1,4 +1,4 @@
-# [專題名稱：HabitFlow - 跨平台習慣追蹤利器]
+# HabitFlow - 跨平台習慣追蹤利器
 
 ## Proposal Report
 
