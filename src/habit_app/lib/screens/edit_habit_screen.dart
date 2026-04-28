@@ -59,9 +59,14 @@ class _EditHabitScreenState extends State<EditHabitScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text('Delete "${widget.habit!.name}"?'),
-        content: const Text('This will erase its check-in history. This cannot be undone.'),
+        content: const Text(
+          'This will erase its check-in history. This cannot be undone.',
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancel'),
+          ),
           FilledButton.tonal(
             onPressed: () => Navigator.pop(ctx, true),
             child: const Text('Delete'),
@@ -78,51 +83,123 @@ class _EditHabitScreenState extends State<EditHabitScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final color = Color(_colorValue);
+    final surface = Theme.of(context).colorScheme.surfaceContainerHighest;
+    final muted = Colors.white.withValues(alpha: 0.6);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isEditing ? 'Edit habit' : 'New habit'),
-        actions: [
-          TextButton(
-            onPressed: _save,
-            child: const Text('Save'),
-          ),
-        ],
+        title: Text(_isEditing ? 'Edit Habit' : 'New Habit'),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(20),
-        children: [
-          TextField(
-            controller: _nameController,
-            maxLength: 40,
-            autofocus: !_isEditing,
-            decoration: const InputDecoration(
-              labelText: 'Habit name',
-              hintText: 'e.g. Drink water',
-              border: OutlineInputBorder(),
-            ),
-            textInputAction: TextInputAction.done,
-            onSubmitted: (_) => _save(),
-          ),
-          const SizedBox(height: 16),
-          Text('Color', style: Theme.of(context).textTheme.labelLarge),
-          const SizedBox(height: 12),
-          ColorPickerRow(
-            selected: _colorValue,
-            onSelected: (v) => setState(() => _colorValue = v),
-          ),
-          if (_isEditing) ...[
-            const SizedBox(height: 32),
-            OutlinedButton.icon(
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Theme.of(context).colorScheme.error,
+      body: SafeArea(
+        top: false,
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+          children: [
+            // Live preview pill
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+              decoration: BoxDecoration(
+                color: Color.alphaBlend(color.withValues(alpha: 0.2), surface),
+                borderRadius: BorderRadius.circular(18),
               ),
-              onPressed: _delete,
-              icon: const Icon(Icons.delete_outline),
-              label: const Text('Delete habit'),
+              child: Row(
+                children: [
+                  CircleAvatar(backgroundColor: color, radius: 8),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      _nameController.text.trim().isEmpty
+                          ? 'Your habit name'
+                          : _nameController.text.trim(),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
+            const SizedBox(height: 24),
+
+            Text('NAME', style: _labelStyle(muted)),
+            const SizedBox(height: 8),
+            TextField(
+              controller: _nameController,
+              maxLength: 40,
+              autofocus: !_isEditing,
+              onChanged: (_) => setState(() {}),
+              style: const TextStyle(fontSize: 16),
+              decoration: InputDecoration(
+                hintText: 'e.g. Drink water',
+                filled: true,
+                fillColor: surface,
+                counterText: '',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: BorderSide.none,
+                ),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              ),
+              textInputAction: TextInputAction.done,
+              onSubmitted: (_) => _save(),
+            ),
+
+            const SizedBox(height: 20),
+            Text('COLOR', style: _labelStyle(muted)),
+            const SizedBox(height: 12),
+            ColorPickerRow(
+              selected: _colorValue,
+              onSelected: (v) => setState(() => _colorValue = v),
+            ),
+
+            const SizedBox(height: 32),
+            FilledButton(
+              onPressed: _save,
+              style: FilledButton.styleFrom(
+                backgroundColor: color,
+                foregroundColor: Colors.white,
+                minimumSize: const Size.fromHeight(52),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                textStyle: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              child: Text(_isEditing ? 'Save' : 'Create'),
+            ),
+
+            if (_isEditing) ...[
+              const SizedBox(height: 12),
+              TextButton.icon(
+                style: TextButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.error,
+                  minimumSize: const Size.fromHeight(48),
+                ),
+                onPressed: _delete,
+                icon: const Icon(Icons.delete_outline),
+                label: const Text('Delete habit'),
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
+
+  TextStyle _labelStyle(Color color) => TextStyle(
+        fontSize: 11,
+        letterSpacing: 1.2,
+        fontWeight: FontWeight.w600,
+        color: color,
+      );
 }
