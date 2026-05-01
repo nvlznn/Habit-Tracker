@@ -1,4 +1,4 @@
-# HabitFlow - 跨平台習慣追蹤利器
+# Habit Tracker
 
 ## Proposal Report
 
