@@ -1,11 +1,6 @@
 # Habibi - Habit Tracker
 
 A minimal habit tracker for iOS, built with Flutter.
-School project for the **DSAP** (Data Structures & Advanced Programming)
-course at NTU.
-
-> Repository: https://github.com/nvlznn/habit-tracker
-> Prototype Release tag: `prototype`
 
 ---
 
@@ -32,14 +27,14 @@ a shared interface and measures them on identical workloads.
 
 ### Competitive Analysis
 
-| App                | Platform        | Price                | Strengths                              | How habibi differs                          |
+| App                | Platform        | Price                | Strengths                              | How Habibi differs                          |
 |--------------------|-----------------|----------------------|----------------------------------------|---------------------------------------------|
 | Habitica           | Web/iOS/Android | Free + subscription  | Gamification, social community         | Quiet & focused, open source                |
 | Streaks            | iOS             | NT$160 one-time      | Polished design                        | No 12-habit cap, free                       |
-| HabitKit           | iOS/Android     | Free + PRO tier      | Dot-grid visualisation, minimal UI     | Open source, transparent algorithm choices  |
+| HabitKit           | iOS/Android     | Free + PRO tier      | Dot-grid visualisation, minimal UI     | Open source                                 |
 | Loop Habit Tracker | Android         | Free (open source)   | Statistics & analytics, open source    | iOS-first                                   |
 
-habibi takes design inspiration from HabitKit (minimal dark UI, dot-grid
+Habibi takes design inspiration from HabitKit (minimal dark UI, dot-grid
 history) but is fully open source and exposes its data-structure choices
 as a teachable benchmark rather than hiding them.
 
@@ -82,15 +77,17 @@ as a teachable benchmark rather than hiding them.
 
    | N      | Impl        | Build (μs) | contains (ns/op) | add (ns/op) | mem (B)  |
    |-------:|-------------|-----------:|-----------------:|------------:|---------:|
-   | 1000   | HashSet     | 322        | 23.4             | 36.3        | 24 000   |
-   | 1000   | SortedArray | 1 159      | 82.5             | 432.1       | 8 000    |
+   | 1000   | HashSet     | 322        | 23.4             | 36.3        | 24,000   |
+   | 1000   | SortedArray | 1,159      | 82.5             | 432.1       | 8 000    |
    | 1000   | Bitmap      | 66         | 44.0             | 35.4        | 375      |
-   | 10000  | HashSet     | 624        | 15.5             | 1 007.5     | 240 000  |
-   | 10000  | SortedArray | 67 182     | 78.3             | 14 620.5    | 80 000   |
-   | 10000  | Bitmap      | 26         | 4.6              | 6.9         | 3 750    |
-   | 100000 | HashSet     | 4 388      | 17.1             | 11.6        | 2 400 000 |
-   | 100000 | SortedArray | 8 240 113  | 528.2            | 150 255.1   | 800 000  |
-   | 100000 | Bitmap      | 426        | 4.3              | 4.2         | 37 500   |
+   |        |             |            |                  |             |          |
+   | 10000  | HashSet     | 624        | 15.5             | 1,007.5     | 240,000  |
+   | 10000  | SortedArray | 67,182     | 78.3             | 14,620.5    | 80,000   |
+   | 10000  | Bitmap      | 26         | 4.6              | 6.9         | 3,750    |
+   |        |             |            |                  |             |          |
+   | 100000 | HashSet     | 4,388      | 17.1             | 11.6        | 2,400,000|
+   | 100000 | SortedArray | 8,240,113  | 528.2            | 150,255.1   | 800,000  |
+   | 100000 | Bitmap      | 426        | 4.3              | 4.2         | 37,500   |
 
    Reading the table:
    - **HashSet**: contains stays roughly flat as N grows (O(1)), but
@@ -104,12 +101,12 @@ as a teachable benchmark rather than hiding them.
      HashSet — and is the fastest per op at every scale beyond JIT
      warmup.
 
-   Conclusion for habibi's actual data scale (≤ a few hundred check-ins
+   Conclusion for Habibi's actual data scale (≤ a few hundred check-ins
    per habit): all three are fast enough, but the comparison shows
    *why* the choice would matter at scale, and the bitmap would be the
    right pick if a habit ever held tens of thousands of records.
 
-4. All three implementations pass a shared correctness test
+5. All three implementations pass a shared correctness test
    (`test/algorithms_test.dart`) — given the same sequence of `add` /
    `remove` / `contains` operations against a seeded RNG, they return
    identical `contains` results at every step.
@@ -141,8 +138,7 @@ as a teachable benchmark rather than hiding them.
 
 - **No Mac available.** The course's final demo is on iOS, but I only
   have a Windows machine on hand. Verified the prototype on Chrome and
-  Windows; will need to arrange Mac access (school lab or a friend's
-  machine) before the 5/17 final to produce a real iOS build.
+  Windows; will need to arrange Mac access before the final to produce a real iOS build.
 - **Hand-written Hive adapter.** I deliberately avoided code generation
   to keep the build pipeline simple, which means every change to the
   `Habit` schema has to update both `read()` and `write()` in lockstep.
@@ -160,7 +156,7 @@ as a teachable benchmark rather than hiding them.
 ### Next Steps
 
 - Borrow / arrange Mac access; build an iOS release; deploy to TestFlight
-  for the 5/17 demo.
+  for the final demo.
 - Record a short demo video walking through the core flow.
 - Write the Final Report sections (project description, usage
   instructions, architecture diagram).
