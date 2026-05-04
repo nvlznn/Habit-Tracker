@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo *)",
+      "Bash(git clone *)",
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(git fetch *)",
+      "Bash(git checkout *)",
+      "Bash(flutter devices *)",
+      "PowerShell(flutter devices *)",
+      "PowerShell(& 'N:\\\\dev\\\\Flutter\\\\flutter\\\\bin\\\\flutter.bat' devices)",
+      "PowerShell(& 'N:\\\\dev\\\\Flutter\\\\flutter\\\\bin\\\\flutter.bat' emulators)",
+      "PowerShell(& 'N:\\\\dev\\\\Flutter\\\\flutter\\\\bin\\\\flutter.bat' emulators --launch Medium_Phone_API_36.1)",
+      "PowerShell(& 'N:\\\\dev\\\\Flutter\\\\flutter\\\\bin\\\\flutter.bat' create src/habit_app)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git config *)",
+      "Bash(git pull *)",
+      "Bash('/n/dev/Flutter/flutter/bin/cache/artifacts/engine/android-arm64/')",
+      "Bash(tasklist //FI \"IMAGENAME eq qemu-system-x86_64.exe\")",
+      "Bash(tasklist //FI \"IMAGENAME eq emulator.exe\")",
+      "PowerShell(Join-Path *)",
+      "PowerShell(Get-CimInstance *)",
+      "PowerShell(Get-Service *)",
+      "PowerShell(Get-ChildItem *)",
+      "Bash(flutter pub *)",
+      "Bash(flutter analyze *)",
+      "Bash(flutter test *)",
+      "Bash(git rm *)",
+      "Bash(git rebase *)",
+      "Bash(Remove-Item -Path src -Recurse -Force)",
+      "Bash(flutter --version)",
+      "Bash(dart --version)",
+      "Bash(mkdir src *)",
+      "Bash(flutter create *)"
+    ]
+  }
+}
