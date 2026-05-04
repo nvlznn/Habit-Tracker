@@ -1,4 +1,4 @@
-# habibi
+# Habibi - Habit Tracker
 
 A minimal habit tracker for iOS, built with Flutter.
 School project for the **DSAP** (Data Structures & Advanced Programming)
